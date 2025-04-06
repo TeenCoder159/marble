@@ -19,17 +19,10 @@ impl Data {
     /// Sets the case sensitivity to the desired setting
     pub fn case_sens(self, sensitivity: bool) -> Self {
         Self {
-            content: {
-                if !sensitivity {
-                    self.content.to_lowercase()
-                } else {
-                    self.content
-                }
-            },
+            content: self.content,
             case_sens: sensitivity,
             autocorrect: true,
         }
-        self
     }
 
     /// Sets autocorrect to the desired setting
@@ -41,9 +34,8 @@ impl Data {
         }
     }
 
-    /// Search through the provided context (of the Data struct)
-    /// Currently, doesn't support multi word search (ex: searching for an instance of "two words")
-    pub fn search(self, search_target: String, margin: u8) -> Option<(Vec<String>, u32)> {
+    /// Search through the provided content (of the Data struct)
+    pub fn search(self, search_target: String) -> Option<(Vec<String>, u32)> {
         let target = search_target.as_str().trim();
         let mut target_counter = 0;
         let mut result = Vec::new();
@@ -53,31 +45,20 @@ impl Data {
         }
 
         for line in self.content.lines() {
-            if line.contains(target) {
-                //
+            let line_contains_target = if self.case_sens {
+                line.contains(target)
+            } else {
+                line.to_lowercase().contains(target.to_lowercase().as_str())
+            };
 
-                let word_count = line.split_whitespace().count();
-                let min_word_count = (2 * margin) + 1;
+            if line_contains_target {
+                // Add the line only once
+                result.push(line.to_string());
 
-                //let mut temp_vec = vec![];
-                //let mut temp_vec_counter = 0;
-                //let mut word_pos: i32;
-
+                // Count occurrences in this line
                 for word in line.split_whitespace() {
                     if word.contains(target) {
-                        target_counter += 1
-                    }
-                    result.push(line.to_string());
-                    if word_count <= min_word_count as usize {
-
-                        // } else {
-                        //     temp_vec.push(word);
-
-                        //     if word.contains(target) {
-                        //         word_pos = temp_vec_counter;
-                        //     }
-
-                        //     temp_vec_counter += 1;
+                        target_counter += 1;
                     }
                 }
             }
