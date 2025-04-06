@@ -1,3 +1,5 @@
+#[derive(Clone)]
+#[allow(unused)]
 pub struct Data {
     content: String,
     case_sens: bool,
@@ -8,25 +10,35 @@ impl Data {
     /// Creates the default implementation of the Data impl with autocorrect and case_sensitivity being on
     pub fn new(content: String) -> Self {
         Self {
-            content: content.to_lowercase(),
+            content,
             case_sens: true,
             autocorrect: true,
         }
     }
 
     /// Sets the case sensitivity to the desired setting
-    pub fn case_sens(&mut self, sensitivity: bool) -> &mut Self {
-        self.case_sens = sensitivity;
-        if !sensitivity {
-            self.content = self.content.to_lowercase();
+    pub fn case_sens(self, sensitivity: bool) -> Self {
+        Self {
+            content: {
+                if !sensitivity {
+                    self.content.to_lowercase()
+                } else {
+                    self.content
+                }
+            },
+            case_sens: sensitivity,
+            autocorrect: true,
         }
         self
     }
 
     /// Sets autocorrect to the desired setting
-    pub fn autocorrect(&mut self, autocorrect: bool) -> &mut Self {
-        self.autocorrect = autocorrect;
-        self
+    pub fn autocorrect(self, autocorrect: bool) -> Self {
+        Self {
+            content: self.content,
+            case_sens: self.case_sens,
+            autocorrect,
+        }
     }
 
     /// Search through the provided context (of the Data struct)
