@@ -17,6 +17,9 @@ impl Data {
     /// Sets the case sensitivity to the desired setting
     fn case_sens(&mut self, sensitivity: bool) -> &mut Self {
         self.case_sens = sensitivity;
+        if !sensitivity {
+            self.content = self.content.to_lowercase();
+        }
         self
     }
 
