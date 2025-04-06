@@ -1,0 +1,22 @@
+# Marble Search Sample Data
+
+This is a sample text file for testing the marble-search utility.
+The utility allows for case sensitive searching with autocorrect features.
+
+Lorem ipsum dolor sit amet, consectetur adipiscing elit. Marble is hidden in this text.
+Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris.
+
+Some words to test searching:
+- marble
+- MARBLE
+- Marble
+- marb1e (with autocorrect)
+- mar ble (with spaces)
+
+This file can be used to test the various search capabilities including:
+- Case sensitivity options
+- Autocorrect functionality
+- Context margin display (showing words surrounding the match)
+
+Happy searching with marble-search!
