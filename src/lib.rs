@@ -6,16 +6,16 @@ pub struct Data {
 
 impl Data {
     /// Creates the default implementation of the Data impl with autocorrect and case_sensitivity being on
-    fn new(content: String) -> Self {
+    pub fn new(content: String) -> Self {
         Self {
-            content,
+            content: content.to_lowercase(),
             case_sens: true,
             autocorrect: true,
         }
     }
 
     /// Sets the case sensitivity to the desired setting
-    fn case_sens(&mut self, sensitivity: bool) -> &mut Self {
+    pub fn case_sens(&mut self, sensitivity: bool) -> &mut Self {
         self.case_sens = sensitivity;
         if !sensitivity {
             self.content = self.content.to_lowercase();
@@ -24,7 +24,7 @@ impl Data {
     }
 
     /// Sets autocorrect to the desired setting
-    fn autocorrect(&mut self, autocorrect: bool) -> &mut Self {
+    pub fn autocorrect(&mut self, autocorrect: bool) -> &mut Self {
         self.autocorrect = autocorrect;
         self
     }
