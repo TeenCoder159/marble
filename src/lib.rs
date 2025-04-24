@@ -3,7 +3,6 @@
 pub struct Data {
     content: String,
     case_sens: bool,
-    autocorrect: bool,
 }
 
 impl Data {
@@ -12,7 +11,6 @@ impl Data {
         Self {
             content,
             case_sens: true,
-            autocorrect: true,
         }
     }
 
@@ -21,16 +19,6 @@ impl Data {
         Self {
             content: self.content,
             case_sens: sensitivity,
-            autocorrect: true,
-        }
-    }
-
-    /// Sets autocorrect to the desired setting
-    pub fn autocorrect(self, autocorrect: bool) -> Self {
-        Self {
-            content: self.content,
-            case_sens: self.case_sens,
-            autocorrect,
         }
     }
 
@@ -52,12 +40,16 @@ impl Data {
             };
 
             if line_contains_target {
-                // Add the line only once
                 result.push(line.to_string());
 
-                // Count occurrences in this line
                 for word in line.split_whitespace() {
-                    if word.contains(target) {
+                    let word_contains_target = if self.case_sens {
+                        word.contains(target)
+                    } else {
+                        word.to_lowercase().contains(target.to_lowercase().as_str())
+                    };
+
+                    if word_contains_target {
                         target_counter += 1;
                     }
                 }
