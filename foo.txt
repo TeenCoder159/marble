@@ -4,7 +4,7 @@ This is a sample text file for testing the marble-search utility.
 The utility allows for case sensitive searching with autocorrect features.
 
 Lorem ipsum dolor sit amet, consectetur adipiscing elit. Marble is hidden in this text.
-Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+Sed do eiusmod marble incididunt ut marBle et dolore magna aliqua.
 Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris.
 
 Some words to test searching:
